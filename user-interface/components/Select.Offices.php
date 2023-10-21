@@ -1,4 +1,4 @@
-<select name="office" id="office" class="form-control">
+<select name="office" id="requesting-office" class="form-control">
     <option value="" selected>- SELECT AN OPTION -</option>
     <option value="FMD">FMD - FINANCE MANAGEMENT DIVISION</option>
     <option value="LMD">LMD - LOGISTICS MANAGEMENT DIVISION</option>

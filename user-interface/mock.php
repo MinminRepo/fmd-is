@@ -22,8 +22,56 @@
     $(document).ready (() => {
         console.log ('controller.loaded');
         const switchPanels = $('.switch-panel');
-        switchPanels.hide ();
-        console.log ();
+        switchToPanel (0);
+        var currentIndex = 0;
+
+        function disableBack () {
+            $('#new-transaction-modal #back-btn').hide ();
+        }
+
+        function enableBack () {
+            $('#new-transaction-modal #back-btn').show ();
+        }
+       
+        function switchToPanel (index) {
+
+            if (index < 0) {
+                // console.log ('Index is less than 0, setting to 0...');
+                index = 0;
+            }
+            if (index > switchPanels.length - 1) {
+                // console.log (`Index is more than ${switchPanels.length-1}, setting to ${switchPanels.length-1}...`);
+                index = switchPanels.length - 1;
+            }
+
+            currentIndex = index;
+            console.log (index);
+            if (index === 0)
+                disableBack ();
+            else 
+                enableBack ();
+
+            switchPanels.removeClass("current").eq(index).addClass("current");
+            switchPanels.not("current").hide();
+            switchPanels.eq(index).show();
+            
+        }
+
+        $('#new-transaction-modal #continue-btn').on ('click', (e) => {
+            currentIndex += 1;
+            switchToPanel (currentIndex); 
+
+            if (currentIndex === switchPanels.length - 1) {
+                $('#new-transaction-modal #continue-btn').html ("Add Transaction");
+            }
+        });
+
+        $('#new-transaction-modal #back-btn').on ('click', (e) => {
+            currentIndex -= 1;
+            switchToPanel (currentIndex); 
+            $('#new-transaction-modal #continue-btn').html ("Continue");
+        });
+
     });
 </script>
 </html>
