@@ -63,7 +63,53 @@
 
             if (currentIndex === switchPanels.length - 1) {
                 $('#new-transaction-modal #continue-btn').html ("Add Transaction");
+
+                let transactionData = {
+
+                    type: {
+                        id: $('#new-transaction-modal #transaction-type > option:selected').val(),
+                        text: $('#new-transaction-modal #transaction-type > option:selected').text(),
+                    },
+                    office: {
+                        id: $('#new-transaction-modal #requesting-office > option:selected').val(),
+                        text: $('#new-transaction-modal #requesting-office > option:selected').text(),
+                    },
+                    titleSubject: $('#new-transaction-modal #transaction-title').val(),
+                    amount: parseFloat ($('#new-transaction-modal #transaction-amount').val()),
+                    initialStatus: {
+                        id: $('#new-transaction-modal #transaction-status > option:selected').val(),
+                        text: $('#new-transaction-modal #transaction-status > option:selected').text(),
+                    },
+                    hwi: $('#new-transaction-modal #transaction-hwi').val(),
+                };
+
+                console.log (transactionData);
+
+                // display to table:
+                let transactionDataTable = `<table class="table table-sm">
+                        <tr>
+                            <td>Type:</td><td>${transactionData.type.text}</td>
+                        </tr>
+                        <tr>
+                            <td>Requesting Office:</td><td>${transactionData.office.text}</td>
+                        </tr>
+                        <tr>
+                            <td>Title:</td><td>${transactionData.titleSubject}</td>
+                        </tr>
+                        <tr>
+                            <td>Amount Requested:</td><td>PHP ${transactionData.amount.toLocaleString()}</td>
+                        </tr>
+                        <tr>
+                            <td>Initial Status:</td><td>${transactionData.initialStatus.text}</td>
+                        </tr>
+                        <tr>
+                            <td>HWI, if any:</td><td>${transactionData.hwi}</td>
+                        </tr>
+                    </table>`;
+
+                    $('#new-transaction-modal #transaction-summary').html (transactionDataTable);
             }
+
         });
 
         $('#new-transaction-modal #back-btn').on ('click', (e) => {

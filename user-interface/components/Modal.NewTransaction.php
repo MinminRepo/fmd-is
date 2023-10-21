@@ -39,8 +39,7 @@
                     </div>
                 </div>
                 <div class="switch-panel">
-                    <h2>Transaction Summary</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi iure perferendis dolorem ex quasi minima in quisquam nam vero delectus. Labore corrupti aut deserunt voluptate dolor provident consequatur a vitae?</p>
+                    <div id="transaction-summary"></div>
                 </div>
             </div>
             <div class="modal-footer">
