@@ -60,11 +60,19 @@
         $('#new-transaction-modal #continue-btn').on ('click', (e) => {
             currentIndex += 1;
             switchToPanel (currentIndex); 
+            let transactionData = {};
+            
+            /** Error on this one:
+             * Fires as soon as the change in the button's caption occurs
+             */
+            if ( 
+                $('#new-transaction-modal #continue-btn').html ("Add Transaction") 
+                && currentIndex === switchPanels.length - 1
+            ) {
 
-            if (currentIndex === switchPanels.length - 1) {
-                $('#new-transaction-modal #continue-btn').html ("Add Transaction");
-
-                let transactionData = {
+                // build the logical tree of the data
+                // that is entered by the user
+                transactionData = {
 
                     type: {
                         id: $('#new-transaction-modal #transaction-type > option:selected').val(),
@@ -81,11 +89,12 @@
                         text: $('#new-transaction-modal #transaction-status > option:selected').text(),
                     },
                     hwi: $('#new-transaction-modal #transaction-hwi').val(),
-                };
+                    };
 
                 console.log (transactionData);
 
-                // display to table:
+                // create a HTML node that contains the summary of all the data
+                // entered by the user
                 let transactionDataTable = `<table class="table table-sm">
                         <tr>
                             <td>Type:</td><td>${transactionData.type.text}</td>
@@ -107,7 +116,31 @@
                         </tr>
                     </table>`;
 
-                    $('#new-transaction-modal #transaction-summary').html (transactionDataTable);
+                $('#new-transaction-modal #transaction-summary').html (transactionDataTable);
+
+                // fire the transaction into the server
+                console.log ('Add Transaction is fired!');
+                $.ajax ({
+                    url: '../backend/AddTransaction.php',
+                    method: "POST",
+                    data: transactionData,
+                    beforeSend: () => {
+                        console.log ("Sending data...");
+                    },
+                    success: (callback) => {
+                        console.log (callback);
+                    },
+                    error: (callback) => {
+                        console.log (callback);
+                    }
+                });
+
+            }
+
+            if (currentIndex === switchPanels.length - 1) {
+                $('#new-transaction-modal #continue-btn').html ("Add Transaction");
+            } else {
+                $('#new-transaction-modal #continue-btn').html ("Continue");
             }
 
         });
@@ -119,5 +152,6 @@
         });
 
     });
+
 </script>
 </html>

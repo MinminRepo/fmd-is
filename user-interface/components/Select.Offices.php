@@ -9,4 +9,6 @@
     <option value="PMD">Personnel Management Division</option>
     <option value="ENG">Engineering Service</option>
     <option value="AHD">Academy Health Service</option>
+    <option value="ALP">ALPROJ</option>
+    <option value="OTH">Other Party(ies)</option>
 </select>
